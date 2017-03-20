@@ -1,18 +1,17 @@
 {
-  "name": "zhooublog",
+  "name": "nodejslocalapi",
   "version": "1.0.0",
-  "description": "my first blog",
+  "description": "nodejs local API",
   "main": "index.js",
   "scripts": {
     "test": "node --harmony ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha",
     "dev": "supervisor --harmony index",
-    "start": "pm2 start index.js --node-args='--harmony' --name 'myblog'"
+    "start": "pm2 start index.js --node-args='--harmony' --name 'nodejslocalapi'"
   },
   "keywords": [
     "zhoou",
-    "blog",
-    "nodejs",
-    "mongodb"
+    "localapi",
+    "nodejs"
   ],
   "author": "zhoou",
   "license": "ISC",
