@@ -112,15 +112,19 @@ router.post('/:postId/edit', function (req, res, next) {
 // POST /posts/:postId/remove 删除api信息
 router.get('/:postId/remove', function (req, res, next) {
     var postId = req.params.postId;
-    //var filename = req.params.filePath;
-    //console.log("=======================");
     try {
-        var fpath = path.join(__dirname, '../data/' + filename + '.json');
-        //fs.unlink(fpath);
-        var db = low(fpath);
+        var db = low(path.join(__dirname, '../data/apilists.json'));
+        // 刪除相应json文件
+        var value = db.get('dataList')
+            .find({ key: postId })
+            .value();
+        var fpath = path.join(__dirname, '../data/' + value.filePath);
+        fs.unlink(fpath);
+        // 删除相应记录
         db.get('dataList')
             .remove({ key: postId })
             .write();
+        // 返回首界面
         res.redirect('/');
     } catch (e) {
         res.render('404');
