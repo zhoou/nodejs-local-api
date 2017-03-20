@@ -1,0 +1,32 @@
+<%- include('header') %>
+<div>
+ <% if (haveList) { %>
+    <div class="add">
+        <a type="button" class="btn btn-primary" href="/main/create">+ Add</a>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">API lists</h3>
+        </div>
+        <div class="panel-body apilist">
+            <ul>
+                <% lists.forEach(function(item){ %>
+                    <li>
+                        <h4><%= item.name %></h4>
+                        <p><small>参数描述：<%= item.param %></small></p>
+                        <p><small>功能描述：<%= item.descript %></small></p>
+                        <div class="ope">
+                            <button type="button" class="btn btn-link">Edit</button>
+                            <button type="button" class="btn btn-link">Delete</button>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+ <% } else { %>
+    <span class="errmsg">数据获取失败！</span>
+ <% } %>
+</div>
+
+<%- include('footer') %>
