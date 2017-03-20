@@ -1,28 +1,50 @@
 <%- include('header') %>
-
-<div class="ui grid">
-  <div class="four wide column">
-    <a class="avatar"
-       href="/posts?author=<%= user._id %>"
-       data-title="<%= user.name %> | <%= ({m: '男', f: '女', x: '保密'})[user.gender] %>"
-       data-content="<%= user.bio %>">
-      <img class="avatar" src="/img/<%= user.avatar %>">
-    </a>
+<div class="right-link"><a class="btn btn-link" href="/main">Back</a></div>
+<div class="panel panel-info">
+  <div class="panel-heading">Add API</div>
+  <div class="panel-body">
+      <form class="form-horizontal" method="post" action="/main/<%= data.key %>/edit" enctype="multipart/form-data">
+        <div class="field form-group">
+          <label for="name" class="col-sm-2 control-label">API Name: </label>
+          <div class="col-sm-10">
+            <div class="input-group">
+              <div class="input-group-addon">/zhoou/</div>
+              <input type="text" class="form-control" name="name" placeholder="api name" value="<%=data.name%>" required>
+            </div>
+          </div>
+        </div>
+        <div class="field form-group">
+          <label for="param" class="col-sm-2 control-label">Params Descript:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name="param" placeholder="param" value="<%=data.param%>" required>
+          </div>
+        </div>
+        <div class="field form-group">
+          <label for="function" class="col-sm-2 control-label">Function Descript:</label>
+          <div class="col-sm-10">
+            <textarea class="form-control" rows="3" name="funcdescript" placeholder="function description" required> <%=data.descript%> </textarea>
+          </div>
+        </div>
+        <div class="field form-group required">
+          <label for="jsonfile" class="col-sm-2 control-label">json file: </label>
+          <div class="col-sm-10">
+            <p class="help-block"><%= data.filePath %></p>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-default">Reset</button>
+          </div>
+        </div>
+        <div>
+            <% if (errMsg) { %>
+              <p class="message"><%= errMsg %></p>
+            <% } %>
+        </div>
+      </form>
   </div>
-
-  <div class="eight wide column">
-    <form class="ui form segment" method="post" action="/posts/<%= post._id %>/edit">
-      <div class="field required">
-        <label>标题</label>
-        <input type="text" name="title" value="<%= post.title %>">
-      </div>
-      <div class="field required">
-        <label>内容</label>
-        <textarea name="content" rows="15"><%= post.content %></textarea>
-      </div>
-      <input type="submit" class="ui button" value="发布">
-    </div>
-  </form>
 </div>
+
 
 <%- include('footer') %>

@@ -63,13 +63,78 @@ router.post('/', function (req, res, next) {
 
             var db = low(path.join(__dirname, '../data/apilists.json'));
             db.get('dataList')
-                .push({ name: '/zhoou/' + name, param: param, descript: descript })
+                .push({ key: randomId(), name: '/zhoou/' + name, param: param, descript: descript, filePath: req.files.jsonfile.name })
                 .write();
             return res.redirect('/main');
         }
     });
+});
+
+//编辑接口页面
+router.get('/:id/edit', function (req, res) {
+    //文件名称其实就是url最后的参数
+    var id = req.params.id,
+        jsonName = './data/apilists.json';
+    if (!id) {
+        res.redirect('/');
+    } else {
+        try {
+            var db = low(path.join(__dirname, '../data/apilists.json'));
+            var data = db.get('dataList')
+                .find({ key: id })
+                .value();
+            res.render('edit', { data: data, errMsg: "" });
+        } catch (e) {
+            res.render('404');
+        }
+    }
+});
+
+// POST /posts/:postId/edit 更新api信息
+router.post('/:postId/edit', function (req, res, next) {
+    var postId = req.params.postId;
+    var name = req.fields.name;
+    var param = req.fields.param;
+    var descript = req.fields.funcdescript.trim();
+    try {
+        var db = low(path.join(__dirname, '../data/apilists.json'));
+        db.get('dataList')
+            .find({ key: postId })
+            .assign({ name: '/zhoou/' + name, param: param, descript: descript })
+            .write();
+        res.redirect('/');
+    } catch (e) {
+        res.render('404');
+    }
 
 });
+
+// POST /posts/:postId/remove 删除api信息
+router.get('/:postId/remove', function (req, res, next) {
+    var postId = req.params.postId;
+    //var filename = req.params.filePath;
+    //console.log("=======================");
+    try {
+        var fpath = path.join(__dirname, '../data/' + filename + '.json');
+        //fs.unlink(fpath);
+        var db = low(fpath);
+        db.get('dataList')
+            .remove({ key: postId })
+            .write();
+        res.redirect('/');
+    } catch (e) {
+        res.render('404');
+    }
+})
+
+function randomId() {
+    var x = '0123456789abcdefghijklmnopqrstuvwxyz';
+    var tmp = "";
+    for (var i = 0; i < 6; i++) {
+        tmp += x.charAt(Math.ceil(Math.random() * 100000000) % x.length);
+    }
+    return tmp;
+}
 
 module.exports = router;
 

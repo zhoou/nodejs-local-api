@@ -1,6 +1,5 @@
 <%- include('header') %>
 <div>
- <% if (haveList) { %>
     <div class="add">
         <a type="button" class="btn btn-primary" href="/main/create">+ Add</a>
     </div>
@@ -16,17 +15,14 @@
                         <p><small>参数描述：<%= item.param %></small></p>
                         <p><small>功能描述：<%= item.descript %></small></p>
                         <div class="ope">
-                            <button type="button" class="btn btn-link">Edit</button>
-                            <button type="button" class="btn btn-link">Delete</button>
+                            <a type="button" class="btn btn-link" href="/main/<%= item.key %>/edit">Edit</a>
+                            <a type="button" class="btn btn-link" href="/main/<%= item.key %>/remove">Delete</a>
                         </div>
                     </li>
                 <% }) %>
             </ul>
         </div>
     </div>
- <% } else { %>
-    <span class="errmsg">数据获取失败！</span>
- <% } %>
 </div>
 
 <%- include('footer') %>
