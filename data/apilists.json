@@ -1,1 +1,1 @@
-{"author":"zhoou","createData":"2017-02-06","dataList":[{"name":"/login?name={param1}&password={param2}","param":"param1: 用户名， param2：密码","descript":"用于用户登录功能的验证"},{"name":"/api02","param":"null","descript":"http://localhost/asdasdsdf"},{"name":"/api03","param":"null","descript":"http://localhost/asdasddvgff"},{"name":"/zhoou/login","param":"null","descript":"login"}]}
+{"author":"zhoou","createData":"2017-02-06","dataList":[]}
